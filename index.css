@@ -14,12 +14,27 @@ header {
 	font-size: 2em;
 	font-weight: 700;
 	line-height: 1.2em;
+	animation: slideUp ease-out 1s 1.2s forwards;
+	opacity: 0;
+}
+
+@keyframes slideUp {
+	0% {
+		transform: translateY(80%);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0%);
+		opacity: 1;
+	}
 }
 
 .explanation {
 	margin-top: 20vh;
 	color: gray;
 	font-size: 0.9em;
+	opacity: 0;
+	animation: slideUp 0.8s 2s ease-out forwards;
 }
 
 .odd-color {
