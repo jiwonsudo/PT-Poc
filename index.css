@@ -1,6 +1,6 @@
 header {
 	width: 100%;
-	margin: 33vh auto 12vh;
+	margin: 30vh auto 12vh;
 	text-align: center;
 }
 
@@ -28,8 +28,8 @@ header {
 
 
 .algorithm-section {
-	background-color: black;
-	padding: 5vh 1em;
+	background-color: #0b611f;
+	padding: 7em 1em;
 	color: white;
 }
 
@@ -51,6 +51,7 @@ header {
 
 .exp-img {
 	margin: 30px auto;
+	max-width: 300px;
 }
 
 .exp-img img {
@@ -73,11 +74,39 @@ header {
 
 
 .partnership-section {
-	width: 100%;
+	width: 100vw;
 	height: 500px;
+	padding: 7em 0;
 }
 
+.pnt-titles {
+	text-align: right;
+	margin-right: 1em;
+}
 
+.pnt-title {
+	font-size: 2em;
+	font-weight: 600;
+	line-height: 1.2em;
+}
+
+.pnt-subtitle {
+	margin-top: 1em;
+	font-size: 1em;
+	font-weight: 300;
+}
+
+.pnt-exp {
+	margin-top: 3em;
+	font-size: 1em;
+	font-weight: 300;
+	line-height: 1.4em;
+	padding-left: 1em;
+}
+
+.pnt-exp > span {
+	font-weight: 600;
+}
 
 /* slider */
 
@@ -89,10 +118,10 @@ header {
 .slider {
 	background: white;
 	height: 120px;
-	margin: auto;
-	overflow:hidden;
+	margin: 5em 0;
+	overflow: hidden;
 	position: relative;
-	width: calc(120 * 6)px;
+	width: 100%;
 }
 
 	
