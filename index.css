@@ -276,5 +276,62 @@ header {
 }
 
 .subdiv-container > img {
-	height: 180px;
+	height: 150px;
+}
+
+.subdiv-exp {
+	margin-top: 40px;
+	font-size: 1em;
+	line-height: 1.3em;
+	padding-left: 1em;
+}
+
+.subdiv-exp > span {
+	font-weight: 600;
+}
+
+
+
+.start-section {
+	width: 100vw;
+	padding: 120px 0;
+	background-color: black;
+}
+
+.start-subtitle {
+	width: 100%;
+	color: white;
+	font-size: 1.2em;
+	font-weight: 600;
+	text-align: center;
+	line-height: 1.2em;
+}
+
+.start-title {
+	width: 100%;
+	color: #18c440;
+	font-size: 2em;
+	font-weight: 700;
+	text-align: center;
+	line-height: 1.2em;
+	margin-top: 15px;
+}
+
+.start-btn-container {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.start-btn {
+	margin: 30px auto;
+	padding: 1em;
+	border: none;
+	background-color: #0d782a;
+	color: #ffffff;
+	font-size: 0.9em;
+	font-weight: 500;
+	border-radius: 10px;
+	font-family: "Pretendard";
 }
