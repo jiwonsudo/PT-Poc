@@ -176,6 +176,7 @@ header {
 .partnership-section {
 	width: 100vw;
 	padding: 100px 0;
+	background-color: #CBE3D1;
 }
 
 .pnt-titles {
@@ -198,7 +199,6 @@ header {
 .pnt-exp {
 	margin-top: 40px;
 	font-size: 1em;
-	font-weight: 300;
 	line-height: 1.3em;
 	padding-left: 1em;
 }
@@ -240,4 +240,41 @@ header {
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
+}
+
+
+
+
+.subdiv-section {
+	width: 100vw;
+	padding: 100px 0;
+}
+
+.subdiv-title {
+	padding-left: 0.5em;
+	font-size: 2em;
+	font-weight: 600;
+	line-height: 1.2em;
+}
+
+.subdiv-subtitle {
+	padding-left: 1em;
+	margin-top: 1em;
+	font-weight: 500;
+	line-height: 1.2em;
+}
+
+.subdiv-images {
+	margin-top: 100px;
+}
+
+.subdiv-container {
+	margin: 10px 30px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.subdiv-container > img {
+	height: 180px;
 }
