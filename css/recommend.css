@@ -47,7 +47,7 @@ header {
 	display: block;
 }
 
-.inputs > input {
+.inputs input {
 	margin: 1em;
 	padding: 0.5em 1em;
 	border: none;
@@ -58,8 +58,12 @@ header {
 	font-weight: 600;
 }
 
-.inputs > input:focus {
+.inputs input:focus {
 	outline: none;
+}
+
+.inputs input::placeholder {
+	color: lightgray;
 }
 
 .btn-next-container {
@@ -97,7 +101,7 @@ header {
 	display: block;
 }
 
-.alert-msg .show {
+.show {
 	opacity: 1;
 	visibility: 1;
 }
