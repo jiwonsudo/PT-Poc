@@ -41,10 +41,9 @@ const pages = {
 		subtitle : '1은 산책 정도, 5는 호흡이 매우 가빠질 정도의 운동 강도예요.',
 		alert: '운동 강도를 알려주세요.',
 		inner : '<div class="rating-container">'
-        +'<div>1 ~ 5 선택 바</div>'
-       +'<input type="range" id="rating" min="1" max="5" value="3">'
-       + '<div class="result">'
-            +'선택한 값: <span id="selected-value" class="value">3</span>'
+       +'<input class="intensity-input" type="range" id="rating" min="1" max="5" value="3">'
+       + '<div class="intensity-result">'
+            +'운동 강도: <span id="selected-value" class="intensity-value">3단계</span>'
         +'</div>'
     		+'</div>'
 	},
@@ -59,6 +58,20 @@ const pages = {
             +'<label class="goal-label"><input class="goal-input" type="radio" name="goal" value="뼈 건강">뼈 건강</label></div>'
         +'<div class="goal-result">선택된 운동 목표: <span id="selected-goal" class="selected-goal">없음</span></div></div>'
 	},
+	6 : {
+		title: '님의 신체 정보를 알려주세요.',
+		subtitle : '몸에 맞지 않는 성분을 걸러내는 데 필요해요.\n해당하는 항목을 모두 골라주세요.',
+		alert: '신체 정보를 알려주세요.',
+		inner : '<div class="phy-container">'
+						+'<div><label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="0">잦은 소화불량 또는 유당불내증</label>'
+            +'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="1">우유 단백질 알레르기</label>'
+            +'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="2">대두 알레르기</label>'
+            +'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="3">달걀 단백질 알레르기</label>'
+						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="4">신장 문제</label>'
+						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="5">탈수 또는 변비</label>'
+						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="6">잦은 피부 트러블</label></div>'
+						+'<div class="phy-result">선택된 운동 목표: <span id="selected-phy" class="selected-phy">없음</span></div></div>'
+	},
 }
 
 const user = {
@@ -67,10 +80,14 @@ const user = {
 	height: "", // idx 1
 	gender: "", // idx 2
 	age: "", // idx 3
-	exer_level: "", // idx 4
+	exer_intensity: "", // idx 4
 	exer_goal: "", // idx 5
+	phy_char: [0, 0, 0, 0, 0, 0, 0], // idx 6
+	// lactose intol / milk al / soy al / egg al / kidney prob / dehyd or consti / skin trob
+	flavor: "",
 }
 
+// start page = count;
 let count = 0;
 
 const setNextQuestion = () => {
@@ -138,13 +155,13 @@ btnNext.addEventListener('click', () => {
 			const selectedValue = document.getElementById('selected-value');
 
 			ratingInput.addEventListener('input', () => {
-					selectedValue.textContent = ratingInput.value;
+					selectedValue.textContent = ratingInput.value + '단계';
 			});
 		} else {
 			alertContainer.classList.add('show');
 		}
 	}	else if (count === 4) {
-		user.exer_level = document.getElementById('selected-value').textContent;
+		user.exer_intensity = document.getElementById('selected-value').textContent;
 		count++;
 		setNextQuestion();
 		const radioButtons = document.querySelectorAll('.goal-input');
@@ -158,7 +175,41 @@ btnNext.addEventListener('click', () => {
 	} else if (count === 5) {
 		user.exer_goal = document.getElementById('selected-goal').textContent;
 		count ++;
-		Object.keys(user).forEach(item => console.log(user[item]));
+		
+		setNextQuestion();
+		
+		document.querySelectorAll('.phy-label').forEach((label) => {
+			label.addEventListener('click', (event) => {
+				const label = event.currentTarget;
+				const checkbox = label.firstChild;
+				const selected = label.parentNode.parentNode.lastChild.childNode;
+				
+				console.log(selected);
+				
+				if (checkbox.checked) {
+					user.phy_char[checkbox.value] = 0;
+					checkbox.checked = false;
+				} else if (!checkbox.checked){
+					user.phy_char[checkbox.value] = 1;
+					checkbox.checked = true;
+				}
+    		label.classList.toggle("active", checkbox.checked);
+				
+				selected.innerText = "";
+				
+				for (let i=0;i < 7;i++) {
+					if (user.phy_char[i] === 1) {
+						if (selected.innerText === "") {
+							selected.innerText += label.parentNode.childNodes[i].innerText;
+						} else {
+							selected.innerText += (', ' + label.parentNode.childNodes[i].innerText);
+						}
+					}
+				}
+			});
+		});
+	} else if (count === 6) {
+		
 	}
 	
 });

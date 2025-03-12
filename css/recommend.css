@@ -39,6 +39,7 @@ header {
 	padding-top: 1.3em;
 	font-size: 0.8em;
 	font-weight: 400;
+	line-height: 1.2em;
 	display: flex;
 	color: gray;
 }
@@ -127,48 +128,50 @@ header {
 		border-radius: 16px;
 		transition: all 0.3s ease;
 }
+
 input[type="radio"] {
 		display: none;
 }
 
 input[type="radio"]:checked + .gender-label {
-		background-color: #50ba32;
-		color: white;
-		border-color: #50ba32;
+	background-color: #50ba32;
+	color: white;
+	border-color: #50ba32;
+	border: 1px;
 }
 
 
 .rating-container {
 	margin-top: 50px;
-		text-align: center;
+	text-align: center;
 }
 
-input[type="range"] {
+.intensity-input {
 		-webkit-appearance: none;
-		width: 300px;
-		height: 5px;
-		background: #ddd;
+		width: 70vw;
+		height: 1px;
+		background-color: #ccc;
 		outline: none;
-		border-radius: 5px;
+		border-radius: 2px;
 		transition: background 0.3s ease;
 }
 
-input[type="range"]::-webkit-slider-thumb {
+.intensity-input::-webkit-slider-thumb {
 		-webkit-appearance: none;
 		appearance: none;
-		width: 20px;
-		height: 20px;
+		width: 30px;
+		height: 30px;
 		background: #50ba32;
 		border-radius: 50%;
 		cursor: pointer;
 }
 
-.result {
+.intensity-result {
 		margin-top: 20px;
 		font-size: 18px;
 }
 
-.value {
+.intensity-value {
 		font-weight: bold;
 }
 
@@ -177,14 +180,19 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .goal-label {
-		display: block;
-		margin: 10px 0;
-		font-size: 18px;
-		cursor: pointer;
+	display: block;
+	width: 70vw;
+	margin: 1em auto;
+	padding: 0.5em;
+	font-size: 18px;
+	cursor: pointer;
+	background-color: #50ba32;
+	border-radius: 30px;
+	font-weight: 400;
 }
 
 .goal-input {
-		margin-right: 10px;
+	margin-right: 10px;
 }
 
 .goal-result {
@@ -193,5 +201,42 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .selected-goal {
-		font-weight: bold;
+		font-weight: 800;
+}
+
+
+
+.phy-container {
+		text-align: center;
+}
+
+.phy-label {
+	display: block;
+	width: 70vw;
+	margin: 1em auto;
+	padding: 0.5em;
+	font-size: 18px;
+	cursor: pointer;
+	border-radius: 30px;
+	font-weight: 400;
+	border: 1px #50ba32 solid;
+}
+
+.phy-label.active {
+	background-color: #50ba32;
+	border: none;
+}
+
+.phy-input {
+	margin-right: 10px;
+}
+
+.phy-result {
+		margin-top: 20px;
+		font-size: 18px;
+}
+
+.selected-phy {
+	font-size: 1em;
+		font-weight: 800;
 }
