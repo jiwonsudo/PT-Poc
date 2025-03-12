@@ -16,8 +16,8 @@ const pages = {
 		title : '님의 키와 몸무게는 얼마인가요?',
 		subtitle : '신체에 무리를 주지 않는 단백질 제공량 파악에 필요해요.',
 		alert: '키, 몸무게 둘 다 입력해 주세요.',
-		inner : '<input id="input-1" type="text" placeholder="키(cm)"/>'
-		 + '<input id="input-2" type="text" placeholder="몸무게(kg)"/>'
+		inner : '<input id="input-1" type="number" placeholder="키(cm)"/>'
+		 + '<input id="input-2" type="number" placeholder="몸무게(kg)"/>'
 	},
 	2 : { 
 		title : '님의 성별은 무엇인가요?',
@@ -34,7 +34,7 @@ const pages = {
 		title : '님의 나이를 알려주세요.',
 		subtitle : '소화 기능과 칼로리 소모량 파악에 필요해요.',
 		alert: '나이는 필수 항목이예요.',
-		inner : '<input id="input" type="text" placeholder="나이(세)"/>'
+		inner : '<input id="input" type="number" placeholder="나이(세)"/>'
 	},
 	4 : {
 		title : '님의 운동 강도는 어떤가요?',
@@ -49,7 +49,7 @@ const pages = {
 	},
 	5 : {
 		title: '님의 운동 목표는 무엇인가요?',
-		subtitle : '운동 목표에 따라 단백질 보충제 추천이 달라져요.',
+		subtitle : '운동 목표에 따라 단백질 보충제 추천이 달라져요. 가장 중요한 하나만 골라주세요.',
 		alert: '운동 목표를 알려주세요.',
 		inner : '<div class="goal-container">'
         +'<div><label class="goal-label"><input class="goal-input" type="radio" name="goal" value="체중 증가"> 체중 증가</label>'
@@ -126,6 +126,8 @@ btnNext.addEventListener('click', () => {
 			user.height = Number(document.getElementById('input-1').value.trim()).toFixed().toString();
 			user.weight = Number(document.getElementById('input-2').value.trim()).toFixed().toString();
 			setNextQuestion();
+		} else {
+			alertContainer.classList.add('show');
 		}
 	} else if (count === 2) {
 		const maleRadio = document.getElementById('male');
