@@ -8,8 +8,8 @@ TypeHangul.type('.subtitle', {
 // 버튼 관리
 btnStart.addEventListener('click', () => {
 	 location.href = "https://jiwonsudo.github.io/PT-Poc/recommend.html";
-})
+});
 
 btnNavStart.addEventListener('click', () => {
 	 location.href = "https://jiwonsudo.github.io/PT-Poc/recommend.html";
-})
+});
