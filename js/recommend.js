@@ -97,7 +97,7 @@ const user = {
 	name: "", // idx 0
 	weight: "", // idx 1
 	height: "", // idx 1
-	gender: "", // idx 2, male:0, female: 1
+	gender: "", // idx 2
 	age: "", // idx 3
 	exer_intensity: "", // idx 4
 	exer_goal: "", // idx 5
