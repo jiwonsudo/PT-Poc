@@ -246,3 +246,44 @@ input[type="radio"]:checked + .gender-label {
 	font-size: 1em;
 		font-weight: 800;
 }
+
+
+
+
+
+
+
+.flavor-container {
+		text-align: center;
+}
+
+.flavor-label {
+	display: block;
+	width: 70vw;
+	margin: 1em auto;
+	padding: 0.5em;
+	font-size: 18px;
+	cursor: pointer;
+	border-radius: 30px;
+	font-weight: 400;
+	border: 1px #50ba32 solid;
+}
+
+.flavor-label.active {
+	background-color: #50ba32;
+	border: none;
+}
+
+.flavor-input {
+	margin-right: 10px;
+}
+
+.flavor-result {
+		margin-top: 20px;
+		font-size: 18px;
+}
+
+.selected-flavor {
+	font-size: 1em;
+		font-weight: 800;
+}

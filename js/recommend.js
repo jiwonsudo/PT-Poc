@@ -52,10 +52,14 @@ const pages = {
 		subtitle : '운동 목표에 따라 단백질 보충제 추천이 달라져요. 가장 중요한 하나만 골라주세요.',
 		alert: '운동 목표를 알려주세요.',
 		inner : '<div class="goal-container">'
-        		+'<div><label class="goal-label"><input class="goal-input" type="radio" name="goal" value="체중 증가"> 체중 증가</label>'
-            +'<label class="goal-label"><input class="goal-input" type="radio" name="goal" value="체중 감소">체중 감소</label>'
+        		+'<div><label class="goal-label"><input class="goal-input" type="radio" name="goal" value="체중 감량">체중 감량</label>'
             +'<label class="goal-label"><input class="goal-input" type="radio" name="goal" value="근육 증가">근육 증가</label>'
-            +'<label class="goal-label"><input class="goal-input" type="radio" name="goal" value="뼈 건강">뼈 건강</label></div>'
+            +'<label class="goal-label"><input class="goal-input" type="radio" name="goal" value="지구력 향상">지구력 향상</label>'
+						+'<label class="goal-label"><input class="goal-input" type="radio" name="goal" value="유연성 향상">유연성 향상</label>'
+						+'<label class="goal-label"><input class="goal-input" type="radio" name="goal" value="균형과 코어 강도 증가">균형과 코어 강도 증가</label>'
+						+'<label class="goal-label"><input class="goal-input" type="radio" name="goal" value="심폐 기능 향상">심폐 기능 향상</label>'
+						+'<label class="goal-label"><input class="goal-input" type="radio" name="goal" value="스트레스 해소 및 정신 건강">스트레스 해소 및 정신 건강</label>'
+            +'<label class="goal-label"><input class="goal-input" type="radio" name="goal" value="부상 예방 및 회복">부상 예방 및 회복</label></div>'
         		+'<div class="goal-result">선택된 운동 목표: <span id="selected-goal" class="selected-goal">없음</span></div></div>'
 	},
 	6 : {
@@ -68,9 +72,24 @@ const pages = {
             +'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="2">대두 알레르기</label>'
             +'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="3">달걀 단백질 알레르기</label>'
 						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="4">신장 문제</label>'
-						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="5">탈수 또는 변비</label>'
-						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="6">잦은 피부 트러블</label></div>'
+						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="6">카페인 과민 또는 불면증</label>'
+						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="7">탈수 또는 변비</label>'
+						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="8">잦은 피부 트러블</label></div>'
 						+'<div class="phy-result">선택된 신체 정보: <span id="selected-phy" class="selected-phy">없음</span></div></div>'
+	},
+	7: {
+		title: '님이 선호하는 맛을 모두 골라주세요.',
+		subtitle : '선호하는 맛을 기반으로 질리지 않게 서비스해 드려요.',
+		alert: '맛은 꼭 선택해야 해요.',
+		inner : '<div class="flavor-container">'
+						+'<div><label class="flavor-label"><input class="flavor-input" type="checkbox" hidden name="초콜릿" value="0">초콜릿</label>'
+            +'<label class="flavor-label"><input class="flavor-input" type="checkbox" hidden name="딸기" value="1">딸기</label>'
+            +'<label class="flavor-label"><input class="flavor-input" type="checkbox" hidden name="바닐라" value="2">바닐라</label>'
+            +'<label class="flavor-label"><input class="flavor-input" type="checkbox" hidden name="바나나" value="3">바나나</label>'
+						+'<label class="flavor-label"><input class="flavor-input" type="checkbox" hidden name="커피" value="4">커피</label>'
+						+'<label class="flavor-label"><input class="flavor-input" type="checkbox" hidden name="쿠키 & 크림" value="5">쿠키 & 크림</label>'
+						+'<label class="flavor-label"><input class="flavor-input" type="checkbox" hidden name="민트 & 초콜릿" value="6">민트 & 초콜릿</label></div>'
+						+'<div class="flavor-result">선택한 맛: <span id="selected-flavor" class="selected-flavor">없음</span></div></div>'
 	},
 }
 
@@ -82,13 +101,14 @@ const user = {
 	age: "", // idx 3
 	exer_intensity: "", // idx 4
 	exer_goal: "", // idx 5
-	phy_char: [0, 0, 0, 0, 0, 0, 0], // idx 6
-	// lactose intol / milk al / soy al / egg al / kidney prob / dehyd or consti / skin trob
-	flavor: "",
+	phy_char: [0, 0, 0, 0, 0, 0, 0, 0], // idx 6
+	// lactose intol / milk al / soy al / egg al / kidney prob / caffe toxic / dehyd or consti / skin trob
+	flavor: [0, 0, 0, 0, 0, 0, 0], // idx 7
+	// choco / strawberry / vanila / banana / coffee / cookie & cream / mintchoco
 }
 
 // start page = count;
-let count = 4;
+let count = 0;
 
 const setNextQuestion = () => {
 	if (count == 0) {
@@ -194,8 +214,6 @@ btnNext.addEventListener('click', () => {
 				const checkbox = label.firstChild;
 				const selected = document.getElementById('selected-phy');
 				
-				console.log('selected:' + selected);
-				
 				if (checkbox.checked) {
 					user.phy_char[checkbox.value] = 0;
 					checkbox.checked = false;
@@ -207,7 +225,7 @@ btnNext.addEventListener('click', () => {
 				
 				selected.innerText = "";
 				
-				for (let i=0;i < 7;i++) {
+				for (let i=0;i < 8;i++) {
 					if (user.phy_char[i] === 1) {
 						if (selected.innerText === "") {
 							selected.innerText += label.parentNode.childNodes[i].innerText;
@@ -222,6 +240,42 @@ btnNext.addEventListener('click', () => {
 		count ++;
 		
 		setNextQuestion();
+		
+		document.querySelectorAll('.flavor-label').forEach((label) => {
+			label.addEventListener('click', (event) => {
+				const label = event.currentTarget;
+				const checkbox = label.firstChild;
+				const selected = document.getElementById('selected-flavor');
+				
+				if (checkbox.checked) {
+					user.flavor[checkbox.value] = 0;
+					checkbox.checked = false;
+				} else if (!checkbox.checked){
+					user.flavor[checkbox.value] = 1;
+					checkbox.checked = true;
+				}
+    		label.classList.toggle("active", checkbox.checked);
+				
+				selected.innerText = "";
+				
+				for (let i=0;i < 7;i++) {
+					if (user.flavor[i] === 1) {
+						if (selected.innerText === "") {
+							selected.innerText += label.parentNode.childNodes[i].innerText;
+						} else {
+							selected.innerText += (', ' + label.parentNode.childNodes[i].innerText);
+						}
+					}
+				}
+			});
+		});
+	} else if (count === 7) {
+		if (user.flavor.includes(1)) {
+			alertContainer.classList.remove('show');
+			count++;
+		} else {
+			alertContainer.classList.add('show');
+		}
 	}
 	
 });
