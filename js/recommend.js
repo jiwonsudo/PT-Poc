@@ -241,6 +241,8 @@ btnNext.addEventListener('click', () => {
 		
 		setNextQuestion();
 		
+		btnNext.innerText = "AI 추천 받기";
+		
 		document.querySelectorAll('.flavor-label').forEach((label) => {
 			label.addEventListener('click', (event) => {
 				const label = event.currentTarget;
