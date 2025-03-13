@@ -67,14 +67,14 @@ const pages = {
 		subtitle : '몸에 맞지 않는 성분을 걸러내는 데 필요해요.\n해당하는 항목을 모두 골라주세요.',
 		alert: '신체 정보를 알려주세요.',
 		inner : '<div class="phy-container">'
-						+'<div><label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="0">잦은 소화불량 또는 유당불내증</label>'
+						+'<div><label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="0">유당불내증 또는 잦은 소화불량</label>'
             +'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="1">우유 단백질 알레르기</label>'
             +'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="2">대두 알레르기</label>'
             +'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="3">달걀 단백질 알레르기</label>'
 						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="4">신장 문제</label>'
 						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="6">카페인 과민 또는 불면증</label>'
 						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="7">탈수 또는 변비</label>'
-						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="8">잦은 피부 트러블</label></div>'
+						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="8">채식주의(비건)</label></div>'
 						+'<div class="phy-result">선택된 신체 정보: <span id="selected-phy" class="selected-phy">없음</span></div></div>'
 	},
 	7: {
@@ -97,12 +97,12 @@ const user = {
 	name: "", // idx 0
 	weight: "", // idx 1
 	height: "", // idx 1
-	gender: "", // idx 2
+	gender: "", // idx 2, male:0, female: 1
 	age: "", // idx 3
 	exer_intensity: "", // idx 4
 	exer_goal: "", // idx 5
 	phy_char: [0, 0, 0, 0, 0, 0, 0, 0], // idx 6
-	// lactose intol / milk al / soy al / egg al / kidney prob / caffe toxic / dehyd or consti / skin trob
+	// lactose intol / milk al / soy al / egg al / kidney prob / caffe toxic / dehyd or consti / vegan
 	flavor: [0, 0, 0, 0, 0, 0, 0], // idx 7
 	// choco / strawberry / vanila / banana / coffee / cookie & cream / mintchoco
 }
