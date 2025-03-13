@@ -17,7 +17,7 @@ const pages = {
 		subtitle : '신체에 무리를 주지 않는 단백질 제공량 파악에 필요해요.',
 		alert: '키, 몸무게 둘 다 입력해 주세요.',
 		inner : '<input id="input-1" type="number" placeholder="키(cm)"/>'
-		 + '<input id="input-2" type="number" placeholder="몸무게(kg)"/>'
+		 				+ '<input id="input-2" type="number" placeholder="몸무게(kg)"/>'
 	},
 	2 : { 
 		title : '님의 성별은 무엇인가요?',
@@ -37,29 +37,29 @@ const pages = {
 		inner : '<input id="input" type="number" placeholder="나이(세)"/>'
 	},
 	4 : {
-		title : '님의 운동 강도는 어떤가요?',
+		title : '님의 일주일 평균 운동 강도는 어떤가요?',
 		subtitle : '1은 산책 정도, 5는 호흡이 매우 가빠질 정도의 운동 강도예요.',
 		alert: '운동 강도를 알려주세요.',
 		inner : '<div class="rating-container">'
-       +'<input class="intensity-input" type="range" id="rating" min="1" max="5" value="3">'
-       + '<div class="intensity-result">'
+       			+'<input class="intensity-input" type="range" id="rating" min="1" max="5" value="3">'
+       			+ '<div class="intensity-result">'
             +'운동 강도: <span id="selected-value" class="intensity-value">3단계</span>'
-        +'</div>'
-    		+'</div>'
+        		+'</div>'
+    				+'</div>'
 	},
 	5 : {
 		title: '님의 운동 목표는 무엇인가요?',
 		subtitle : '운동 목표에 따라 단백질 보충제 추천이 달라져요. 가장 중요한 하나만 골라주세요.',
 		alert: '운동 목표를 알려주세요.',
 		inner : '<div class="goal-container">'
-        +'<div><label class="goal-label"><input class="goal-input" type="radio" name="goal" value="체중 증가"> 체중 증가</label>'
+        		+'<div><label class="goal-label"><input class="goal-input" type="radio" name="goal" value="체중 증가"> 체중 증가</label>'
             +'<label class="goal-label"><input class="goal-input" type="radio" name="goal" value="체중 감소">체중 감소</label>'
             +'<label class="goal-label"><input class="goal-input" type="radio" name="goal" value="근육 증가">근육 증가</label>'
             +'<label class="goal-label"><input class="goal-input" type="radio" name="goal" value="뼈 건강">뼈 건강</label></div>'
-        +'<div class="goal-result">선택된 운동 목표: <span id="selected-goal" class="selected-goal">없음</span></div></div>'
+        		+'<div class="goal-result">선택된 운동 목표: <span id="selected-goal" class="selected-goal">없음</span></div></div>'
 	},
 	6 : {
-		title: '님의 신체 정보를 알려주세요.',
+		title: '님에게 해당하는 사항들을 모두 골라주세요.',
 		subtitle : '몸에 맞지 않는 성분을 걸러내는 데 필요해요.\n해당하는 항목을 모두 골라주세요.',
 		alert: '신체 정보를 알려주세요.',
 		inner : '<div class="phy-container">'
@@ -70,7 +70,7 @@ const pages = {
 						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="4">신장 문제</label>'
 						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="5">탈수 또는 변비</label>'
 						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="6">잦은 피부 트러블</label></div>'
-						+'<div class="phy-result">선택된 운동 목표: <span id="selected-phy" class="selected-phy">없음</span></div></div>'
+						+'<div class="phy-result">선택된 신체 정보: <span id="selected-phy" class="selected-phy">없음</span></div></div>'
 	},
 }
 
@@ -88,7 +88,7 @@ const user = {
 }
 
 // start page = count;
-let count = 0;
+let count = 4;
 
 const setNextQuestion = () => {
 	if (count == 0) {
@@ -166,14 +166,22 @@ btnNext.addEventListener('click', () => {
 		user.exer_intensity = document.getElementById('selected-value').textContent;
 		count++;
 		setNextQuestion();
+		
 		const radioButtons = document.querySelectorAll('.goal-input');
-			const selectedGoal = document.getElementById('selected-goal');
+		const selectedGoal = document.getElementById('selected-goal');
 
-			radioButtons.forEach(radio => {
-					radio.addEventListener('change', () => {
-							selectedGoal.textContent = radio.value;
-					});
+		radioButtons.forEach(radio => {
+			radio.addEventListener('change', (event) => {
+				const input = event.currentTarget;
+				const label = input.parentNode;
+				selectedGoal.textContent = radio.value;
+				console.log(input.value);
+				radioButtons.forEach((r) => {
+					r.parentNode.classList.remove('selected');
+				});
+				if (input.checked) label.classList.add('selected');
 			});
+		});
 	} else if (count === 5) {
 		user.exer_goal = document.getElementById('selected-goal').textContent;
 		count ++;
@@ -184,9 +192,9 @@ btnNext.addEventListener('click', () => {
 			label.addEventListener('click', (event) => {
 				const label = event.currentTarget;
 				const checkbox = label.firstChild;
-				const selected = label.parentNode.parentNode.lastChild.childNode;
+				const selected = document.getElementById('selected-phy');
 				
-				console.log(selected);
+				console.log('selected:' + selected);
 				
 				if (checkbox.checked) {
 					user.phy_char[checkbox.value] = 0;
@@ -211,7 +219,9 @@ btnNext.addEventListener('click', () => {
 			});
 		});
 	} else if (count === 6) {
+		count ++;
 		
+		setNextQuestion();
 	}
 	
 });
