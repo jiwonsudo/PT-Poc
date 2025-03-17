@@ -72,15 +72,15 @@ const pages = {
             +'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="2">대두 알레르기</label>'
             +'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="3">달걀 단백질 알레르기</label>'
 						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="4">신장 문제</label>'
-						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="6">카페인 과민 또는 불면증</label>'
-						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="7">탈수 또는 변비</label>'
-						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="8">채식주의(비건)</label></div>'
+						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="5">카페인 과민 또는 불면증</label>'
+						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="6">탈수 또는 변비</label>'
+						+'<label class="phy-label"><input class="phy-input" type="checkbox" hidden name="phy" value="7">채식주의(비건)</label></div>'
 						+'<div class="phy-result">선택된 신체 정보: <span id="selected-phy" class="selected-phy">없음</span></div></div>'
 	},
 	7: {
 		title: '님이 선호하는 맛을 모두 골라주세요.',
 		subtitle : '선호하는 맛을 기반으로 질리지 않게 서비스해 드려요.',
-		alert: '맛은 꼭 선택해야 해요.',
+		alert: '원하시는 맛은 하나 이상 선택해야 해요.',
 		inner : '<div class="flavor-container">'
 						+'<div><label class="flavor-label"><input class="flavor-input" type="checkbox" hidden name="초콜릿" value="0">초콜릿</label>'
             +'<label class="flavor-label"><input class="flavor-input" type="checkbox" hidden name="딸기" value="1">딸기</label>'
@@ -273,8 +273,16 @@ btnNext.addEventListener('click', () => {
 		});
 	} else if (count === 7) {
 		if (user.flavor.includes(1)) {
+			const loadingPopup = document.getElementById('loadingPopup');
+			
 			alertContainer.classList.remove('show');
+			loadingPopup.style.display = 'flex';
 			count++;
+			
+			// AI 추천 시간 3s
+			setTimeout(() => {
+      loadingPopup.style.display = 'none';
+    }, 3000);
 		} else {
 			alertContainer.classList.add('show');
 		}
