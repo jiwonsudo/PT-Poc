@@ -19,7 +19,7 @@ header {
 }
 
 .view {
-	height: calc(100vh - 60px - 40px);
+	min-height: calc(100vh - 60px - 40px);
 	background: #FFFFFF;
 }
 
@@ -78,6 +78,7 @@ header {
 }
 
 .btn-next {
+	margin-bottom: 30px;
 	padding: 1em 2em;
 	border: none;
 	background-color: #0d782a;
