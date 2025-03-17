@@ -1,3 +1,5 @@
+import getRecommendation from './ai.js';
+
 const title = document.getElementById('title');
 const subtitle = document.getElementById('subtitle');
 const alert = document.getElementById('alert-msg');
@@ -91,6 +93,13 @@ const pages = {
 						+'<label class="flavor-label"><input class="flavor-input" type="checkbox" hidden name="민트 & 초콜릿" value="6">민트 & 초콜릿</label></div>'
 						+'<div class="flavor-result">선택한 맛: <span id="selected-flavor" class="selected-flavor">없음</span></div></div>'
 	},
+	8: {
+		title: '',
+		subtitle: '님에게 PT AI가 추천한 보충제예요!',
+		alert:'',
+		inner : '<div class="comment">입력하신 정보를 바탕으로 PT 자체 AI가 추천했어요.'
+						+ '입력한 정보는 절대 유출되지 않으니 안심하세요. 서비스가 런칭되면 연락을 보내드릴게요!</div>'
+	}
 }
 
 const user = {
@@ -107,13 +116,27 @@ const user = {
 	// choco / strawberry / vanila / banana / coffee / cookie & cream / mintchoco
 }
 
+const flavorNames = ['초콜릿', '딸기', '바닐라', '바나나', '커피', '쿠키 & 크림', '민트 & 초콜릿'];
+
 // start page = count;
 let count = 0;
+
+let result = '';
 
 const setNextQuestion = () => {
 	if (count == 0) {
 		title.innerText = pages[count].title;
 		subtitle.innerText = pages[count].subtitle;
+		alert.innerText = pages[count].alert;
+		inputContainer.innerHTML = pages[count].inner;
+	} else if (count == 8) {
+		title.innerText = user.name;
+		user.flavor.forEach((f, idx) => {
+			if (f === 1) {
+				title.innerText += flavorNames[idx];
+			}
+		});
+		subtitle.innerText = user.name + pages[count].subtitle;
 		alert.innerText = pages[count].alert;
 		inputContainer.innerHTML = pages[count].inner;
 	} else {
@@ -195,7 +218,6 @@ btnNext.addEventListener('click', () => {
 				const input = event.currentTarget;
 				const label = input.parentNode;
 				selectedGoal.textContent = radio.value;
-				console.log(input.value);
 				radioButtons.forEach((r) => {
 					r.parentNode.classList.remove('selected');
 				});
@@ -277,12 +299,16 @@ btnNext.addEventListener('click', () => {
 			
 			alertContainer.classList.remove('show');
 			loadingPopup.style.display = 'flex';
-			count++;
-			
 			// AI 추천 시간 3s
 			setTimeout(() => {
-      loadingPopup.style.display = 'none';
-    }, 3000);
+				loadingPopup.style.display = 'none';
+				result = getRecommendation([user.height, user.weight, user.gender, user.age, user.exer_intensity, user.exer_goal,
+ 				user.phy_char[0], user.phy_char[1], user.phy_char[2], user.phy_char[3],
+				user.phy_char[4], user.phy_char[5], user.phy_char[6], user.phy_char[7]]);
+				count++;
+				setNextQuestion();
+    	}, 3000);
+			
 		} else {
 			alertContainer.classList.add('show');
 		}
