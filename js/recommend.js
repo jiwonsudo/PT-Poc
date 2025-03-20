@@ -96,9 +96,11 @@ const pages = {
 	8: {
 		title: '',
 		subtitle: '님에게 PT AI가 추천한 보충제예요!',
-		alert:'',
-		inner : '<div class="comment">입력하신 정보를 바탕으로 PT 자체 AI가 추천했어요.'
-						+ '입력한 정보는 절대 유출되지 않으니 안심하세요. 서비스가 런칭되면 연락을 보내드릴게요!</div>'
+		alert:'전화번호를 올바르게 입력해 주세요.',
+		inner : '<div class="comment">입력하신 정보를 바탕으로<br><span>PT 자체 AI가 추천한 결과</span>예요.<br>'
+						+ '입력한 정보는 절대 유출되지 않으니 안심하세요.<br><span>서비스가 런칭되면 연락을 보내드릴게요!</span>'
+						+ '<br><span>베타 테스터용 첫 달 무료 쿠폰과 함께요:)</span></div>'
+						+ '<input id="input-phone" type="text" maxlength="13" placeholder="010-0000-0000"/>'
 	}
 }
 
@@ -130,15 +132,37 @@ const setNextQuestion = () => {
 		alert.innerText = pages[count].alert;
 		inputContainer.innerHTML = pages[count].inner;
 	} else if (count == 8) {
-		title.innerText = user.name;
+
+		title.innerText = pages[count].title;
+		result = getRecommendation([user.height, user.weight, user.gender, user.age, user.exer_intensity, user.exer_goal,
+ 				user.phy_char[0], user.phy_char[1], user.phy_char[2], user.phy_char[3],
+				user.phy_char[4], user.phy_char[5], user.phy_char[6], user.phy_char[7]]);
 		user.flavor.forEach((f, idx) => {
 			if (f === 1) {
 				title.innerText += flavorNames[idx];
+				title.innerText += ',\u00A0';
 			}
 		});
+		title.innerText = title.innerText.slice(0, -1);
+		title.innerText += '맛의\u00A0';
+		title.innerText += result;
+		title.innerText += `\u00A0하루 ${1.6 * user.weight}g`;
 		subtitle.innerText = user.name + pages[count].subtitle;
 		alert.innerText = pages[count].alert;
+		btnNext.innerText = 'PT 런칭 시 알림 받기';
 		inputContainer.innerHTML = pages[count].inner;
+		document.getElementById('input-phone').addEventListener('input', (event) => {
+			console.log(event.target.value);
+			event.target.value = event.target.value
+			 .replace(/[^0-9]/g, '')
+  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+		});
+	} else if (count == 9) {
+		alertContainer.classList.remove('show');
+		title.innerText = "PT와 함께할 준비가 끝났어요!";
+		subtitle.innerText = '서비스 런칭 시 연락드릴게요.';
+		inputContainer.innerHTML = '';
+		btnNext.innerText = '홈으로 돌아가기';
 	} else {
 		title.innerText = user.name + pages[count].title;
 		subtitle.innerText = pages[count].subtitle;
@@ -147,6 +171,8 @@ const setNextQuestion = () => {
 	}
 	
 }
+
+
 
 btnNext.addEventListener('click', () => {
 	if (count === 0) {
@@ -312,6 +338,20 @@ btnNext.addEventListener('click', () => {
 		} else {
 			alertContainer.classList.add('show');
 		}
+	} else if (count === 8) {
+		function phoneNumberCheck(number){
+			let result = /^\d{3}-\d{3,4}-\d{4}$/;
+			return result.test(number);
+		}
+		if (phoneNumberCheck(document.getElementById('input-phone').value)) {
+			count++;
+			setNextQuestion();
+			alertContainer.classList.remove('show');
+		} else {
+			alertContainer.classList.add('show');
+		}
+	} else if (count === 9) {
+		window.location.href = 'https://jiwonsudo.github.io/PT-Poc/';
 	}
 	
 });

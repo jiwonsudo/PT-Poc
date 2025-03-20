@@ -370,3 +370,13 @@ input[type="radio"]:checked + .gender-label {
         transform: scale(1.05);
       }
     }
+
+.comment {
+	margin: 30px auto 0;
+	width: 80%;
+	line-height: 1.2em;
+}
+
+.comment > span {
+	font-weight: 600;
+}
